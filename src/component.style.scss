@@ -1,0 +1,60 @@
+.VisualNavigation {
+  &__Container {
+    &--full {
+    }
+    &--half {
+    }
+  }
+  &__Item {
+    aspect-ratio: 1;
+    @media screen and (max-width: 768px) {
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-bottom: 10px;
+    }
+    &__Link {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    a {
+      text-decoration: none;
+    }
+    &__Image {
+      width: 100%;
+      aspect-ratio: 1;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    &__Text {
+      font-size: 14px;
+    }
+  }
+  &__Button {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+    button {
+      border: solid 1px black;
+      padding: 10px;
+      font-size: 14px;
+      background-color: white;
+      color: black;
+      transition: 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: black;
+          color: white;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+}
