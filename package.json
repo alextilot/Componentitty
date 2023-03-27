@@ -4,10 +4,10 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build-dev": "webpack",
-    "build-prod": "webpack",
-    "dev": "npx webpack serve",
-    "dev-https": "npx webpack serve --https-request-cert --https-key ./path/to/server.key --https-cert ./path/to/server.crt --https-ca ./path/to/ca.pem --https-pfx ./path/to/server.pfx --https-passphrase webpack-dev-server"
+    "create-new-app": "npx cf src & npx copyfiles template/project/* src",
+    "dev-build": "webpack --env production=false",
+    "prod-build": "webpack --env production",
+    "serve": "webpack serve"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,9 @@
     "@effortlessmotion/html-webpack-inline-source-plugin": "^1.0.3",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
+    "clear-folder": "^5.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "copyfiles": "^2.4.1",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
     "sass": "^1.59.3",
@@ -31,6 +34,8 @@
     "webpack-dev-server": "^4.12.0"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

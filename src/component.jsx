@@ -2,7 +2,6 @@ import "./component.style.scss";
 import { NAV_ITEMS } from "./navItems"
 
 const useState = React.useState;
-const useEffect = React.useEffect;
 
 
 const NavigationItem = (props) => {
@@ -24,6 +23,7 @@ const NavContainer = ({ isExpanded, items }) => {
       <div className="row">
         {items.map((component) => (
           <NavigationItem
+            key={component.key}
             url={component.url}
             image={component.image}
             name={component.name}
@@ -36,26 +36,6 @@ const NavContainer = ({ isExpanded, items }) => {
 
 const VisualNavigation = () => {
   const [expanded, setExpanded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const cacheImages = async (srcArray) => {
-    const promises = await srcArray.map((src) => {
-      return new Promise(function (resolve, reject) {
-        const img = new Image();
-        img.src = src;
-        img.onLoad = resolve();
-        img.onerror = reject();
-      })
-    })
-    await Promise.all(promises);
-    setIsLoading(false);
-  }
-
-  useEffect(() => {
-    const images = NAV_ITEMS.map(element => element.image);
-    cacheImages(images);
-  }, [])
-
 
   const half = Math.ceil(NAV_ITEMS.length / 2);
   const firstHalf = NAV_ITEMS.slice(0, half);
@@ -79,7 +59,7 @@ const VisualNavigation = () => {
           {buttonText}
         </button>
       </div>
-      <hr class="d-block"></hr>
+      <hr className="d-block"></hr>
     </div>
   );
 };

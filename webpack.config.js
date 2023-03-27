@@ -1,7 +1,9 @@
-const TARGET = process.env.npm_lifecycle_event;
-if (TARGET === 'build-dev') {
-  module.exports = require('./webpack.config.dev.js');
-}
-if (TARGET === 'build-prod') {
-  module.exports = require('./webpack.config.prod.js');
-}
+//https://webpack.js.org/guides/environment-variables/
+module.exports = (env) => {
+  console.log("Production: ", env.production);
+  if (env.production === true) {
+    return require("./webpack.config.prod.js");
+  } else {
+    return require("./webpack.config.dev.js");
+  }
+};

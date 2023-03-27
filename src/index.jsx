@@ -13,9 +13,11 @@ if (window.pnt[uid] == null) {
   };
   const component = {
     wrapper: {
-      selector: "#visual-navigation",
+      selector: "visual-nav",
+      // selector: "body",
       //beforebegin, afterbegin, beforeend, afterend.
-      position: "beforebegin",
+      position: "afterbegin",
+      // position: "beforeend",
       allowDuplicates: false,
       identifier: "react-wrapper-uid",
       htmlString: '<div id="react-wrapper-uid"></div>',
