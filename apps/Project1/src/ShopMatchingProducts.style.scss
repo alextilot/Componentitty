@@ -1,0 +1,29 @@
+.ProductMatching {
+  &--hidden {
+    display: none;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .ProductImgOverlay {
+    position: relative;
+    top: -32px;
+    z-index: 1;
+
+    div.CallToAction {
+      user-select: none;
+      border: solid 1px black;
+      background-color: white;
+      padding: 4px 8px;
+
+      .Icon {
+        font-size: 120%;
+        text-decoration: none !important;
+      }
+      .Text {
+        padding-left: 4px;
+      }
+    }
+  }
+}

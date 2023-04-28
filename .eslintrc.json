@@ -1,0 +1,67 @@
+{
+  // lean strict on linting, can reduce strictness if/when things get annoying
+  "extends": ["eslint:recommended", "plugin:import/recommended", "prettier"],
+  "plugins": ["import"],
+  "overrides": [
+    // don't use ts checking for js files https://stackoverflow.com/a/64488475
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@typescript-eslint/strict"
+      ],
+      "plugins": ["@typescript-eslint"],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "@typescript-eslint/member-ordering": "error",
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        // annoying to have to dupe this with the js version
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_"
+          }
+        ]
+      }
+    }
+  ],
+  "rules": {
+    // turn on errors for missing imports
+    "import/no-unresolved": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin", // Built-in imports (come from NodeJS native) go first
+          "external",
+          "internal",
+          ["sibling", "parent"], // <- Relative imports, the sibling and parent types they can be mingled together
+          "index",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+    // "no-unused-vars": [
+    //   "error",
+    //   {
+    //     "argsIgnorePattern": "^_",
+    //     "varsIgnorePattern": "^_"
+    //   }
+    // ],
+    "react/no-unescaped-entities": "off",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreDeclarationSort": true, // don"t want to sort import lines, use eslint-plugin-import instead
+        "allowSeparatedGroups": true // separating imports by group seems more readable
+      }
+    ]
+  }
+}

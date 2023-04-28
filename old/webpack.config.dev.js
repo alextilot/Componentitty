@@ -1,28 +1,6 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-//https://experienceleague.adobe.com/docs/target/using/audiences/visitor-profiles/variables-profiles-parameters-methods.html?lang=en#
-const adobeResponseTokens = [
-  "campaign",
-  "offer",
-  "mbox",
-  "user",
-  "profile",
-  "landing",
-  "parameter",
-];
-const doNotFindAdobeResponseToken = adobeResponseTokens.map((element) => {
-  return `\\\${${element}`;
-});
-//Matches all "${" excluding the adobeResponseTokens.
-const templateLiteralRegex = new RegExp(
-  "(?!" + doNotFindAdobeResponseToken.join("|") + ")(\\${)",
-  "gm"
-);
-
 module.exports = {
   mode: "development",
-  entry: "./src/index.jsx",
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"), // put all of the build in a dist folder
     filename: "bundle.js",
@@ -32,16 +10,23 @@ module.exports = {
   devServer: {
     static: { directory: path.resolve(__dirname, "dist") },
     port: 8887,
-    open: true,
+    host: "127.0.0.1",
+    open: false,
     hot: true,
     compress: true,
     historyApiFallback: true,
-    // host: "webpack-app.dev",
+    allowedHosts: [".landsend.com", "landsend.com"],
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
+    },
     server: {
-      type: "https",
+      type: "http",
       options: {
-        key: "./certificates/webpack-app.dev-key.pem",
-        cert: "./certificates/webpack-app.dev.pem",
+        key: "./certificates/cert.key",
+        cert: "./certificates/cert.crt",
+        ca: "./certificates/ca.pem",
       },
     },
   },
@@ -57,6 +42,7 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js", ".jsx"],
   },
+  // target: "web",
   module: {
     rules: [
       {
@@ -76,12 +62,12 @@ module.exports = {
         options: {
           multiple: [
             {
-              search: new RegExp("\\[uid]", "gmi"),
-              replace: '["00000"]',
+              search: new RegExp("\\[UUID]", "gmi"),
+              replace: '["0000"]',
             },
             {
-              search: new RegExp("\\-uid", "gmi"),
-              replace: "-00000",
+              search: new RegExp("\\-UUID", "gmi"),
+              replace: "-0000",
             },
           ],
           flags: "ig",
